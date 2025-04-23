@@ -27,11 +27,13 @@ class NetworkService {
       showMessage(StringUtils.txtLoginSuccess, null);
     } on FirebaseAuthException catch (e) {
       hideLoading();
-
+      await Future.delayed(Duration(milliseconds: 100));
       if (e.code == 'user-not-found') {
         showMessage(StringUtils.txtNoUserFound, null);
       } else if (e.code == 'wrong-password') {
         showMessage(StringUtils.txtWrongPassword, null);
+      } else {
+        showMessage(e.message ?? StringUtils.txtNoUserFound, null);
       }
     }
 

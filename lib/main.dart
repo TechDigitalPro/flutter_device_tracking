@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +10,10 @@ import 'utils/string_utils.dart';
 import 'utils/widget_utils.dart';
 import 'views/auth/splash_view.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
+  
   setupLocator();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((

@@ -246,8 +246,7 @@ extension WidgetExtension on Widget? {
   }) {
     return InkWell(
       onTap: function as void Function()?,
-      borderRadius:
-          borderRadius ??
+      borderRadius: borderRadius ??
           (defaultInkWellRadius != null ? radius(defaultInkWellRadius) : null),
       splashColor: splashColor ?? defaultInkWellSplashColor,
       hoverColor: hoverColor ?? defaultInkWellHoverColor,
@@ -257,24 +256,22 @@ extension WidgetExtension on Widget? {
   }
 
   /// Launch a new screen
-  Future<T?> launch<T>(
-    BuildContext context, {
-    bool isNewTask = false,
-    PageRouteAnimation? pageRouteAnimation,
-    Duration? duration,
-  }) async {
+  Future<T?> launch<T>(BuildContext context,
+      {bool isNewTask = false,
+      PageRouteAnimation? pageRouteAnimation,
+      Duration? duration}) async {
     if (isNewTask) {
       return await Navigator.of(context).pushAndRemoveUntil(
         buildPageRoute(this!, pageRouteAnimation, duration),
         (route) => false,
       );
     } else {
-      return await Navigator.of(
-        context,
-      ).push(buildPageRoute(this!, pageRouteAnimation, duration));
+      return await Navigator.of(context).push(
+        buildPageRoute(this!, pageRouteAnimation, duration),
+      );
     }
   }
-
+  
   /// Wrap with ShaderMask widget
   Widget withShaderMask(
     List<Color> colors, {

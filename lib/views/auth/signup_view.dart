@@ -16,7 +16,11 @@ class SignUpView extends StatelessWidget {
       TextEditingController();
   final TextEditingController textEditingControllerEmail =
       TextEditingController();
+  final TextEditingController textEditingControllerRecoveryEmail =
+      TextEditingController();
   final TextEditingController textEditingControllerPassword =
+      TextEditingController();
+  final TextEditingController textEditingControllerConfirmPassword =
       TextEditingController();
 
   @override
@@ -40,186 +44,216 @@ class SignUpView extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: ColorUtils.appColorPrimaryDark,
+        appBar: AppBar(
+          backgroundColor: ColorUtils.appColorPrimaryDark,
+          title: textView(
+            StringUtils.txtSignUp,
+            textColor: ColorUtils.appColorWhite,
+            fontSize: SizeUtils.textSizeXLarge,
+            fontWeight: FontWeight.bold,
+          ),
+          leading: IconButton(
+            onPressed: () {
+              model.onClickBack(context);
+            },
+            icon: Icon(Icons.arrow_back, color: ColorUtils.appColorWhite),
+          ),
+        ),
         body: SizedBox(
           child: SingleChildScrollView(
-            child: Stack(
-              children: <Widget>[
-                SizedBox(width: width, height: height),
-                SafeArea(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Container(
-                        height: height * 0.35,
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          ImageUtils.imgIcLogo,
-                          width: width,
-                          height: height * 0.2,
-                          fit: BoxFit.fitHeight,
-                          color: ColorUtils.appColorWhite,
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+            child: SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: height * 0.3,
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      ImageUtils.imgIcLogo,
+                      width: width,
+                      height: height * 0.2,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EditTextField(
+                          hintText: StringUtils.txtYourName,
+                          isPassword: false,
+                          isSecure: false,
+                          mController: textEditingControllerName,
+                          borderColor: ColorUtils.appColorBlack_50,
+                          backgroundColor: ColorUtils.appColorBlack_50,
+                          textColor: ColorUtils.appColorWhite,
+                          cursorColor: ColorUtils.appColorWhite,
+                          fontSize: SizeUtils.textSizeNormal,
+                          borderRadius: 5,
+                          prefixIcon: Container(
+                            color: ColorUtils.appColorTransparent,
+                            padding: const EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.person_2_outlined,
+                              color: ColorUtils.appColorWhite_80,
+                              size: 30,
+                            ),
                           ),
-                          color: ColorUtils.appColorWhite,
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorUtils.appColorBlack_10,
-                              blurRadius: 10,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
                         ),
-                        padding: const EdgeInsets.all(10),
-                        width: width,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textView(
-                              StringUtils.txtSignUp,
-                              textColor: ColorUtils.appColorBlack,
-                              fontSize: SizeUtils.textSizeNormal,
-                              fontWeight: FontWeight.w400,
+                        EditTextField(
+                          hintText: StringUtils.txtEmail,
+                          isPassword: false,
+                          isSecure: false,
+                          mController: textEditingControllerEmail,
+                          borderColor: ColorUtils.appColorBlack_50,
+                          backgroundColor: ColorUtils.appColorBlack_50,
+                          textColor: ColorUtils.appColorWhite,
+                          cursorColor: ColorUtils.appColorWhite,
+                          fontSize: SizeUtils.textSizeNormal,
+                          borderRadius: 5,
+                          prefixIcon: Container(
+                            color: ColorUtils.appColorTransparent,
+                            padding: const EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.email_outlined,
+                              color: ColorUtils.appColorWhite_80,
+                              size: 30,
                             ),
-                            const SizedBox(height: 10),
-                            EditTextField(
-                              hintText: StringUtils.txtYourName,
-                              isPassword: false,
-                              isSecure: false,
-                              mController: textEditingControllerName,
-                              borderColor: ColorUtils.appColorPrimaryDark,
-                              backgroundColor: ColorUtils.appColorWhite,
-                              labelColor: ColorUtils.appColorPrimaryDark,
-                              borderRadius: 5,
-                              prefixIcon: Container(
-                                color: ColorUtils.appColorAccent_5,
-                                padding: const EdgeInsets.all(12),
-                                child: Icon(
-                                  Icons.person_2_outlined,
-                                  color: ColorUtils.appColorPrimaryDark,
-                                  size: 24,
+                          ),
+                        ),
+                        EditTextField(
+                          hintText: StringUtils.txtRecoveryEmail,
+                          isPassword: false,
+                          isSecure: false,
+                          mController: textEditingControllerRecoveryEmail,
+                          borderColor: ColorUtils.appColorBlack_50,
+                          backgroundColor: ColorUtils.appColorBlack_50,
+                          textColor: ColorUtils.appColorWhite,
+                          cursorColor: ColorUtils.appColorWhite,
+                          fontSize: SizeUtils.textSizeNormal,
+                          borderRadius: 5,
+                          prefixIcon: Container(
+                            color: ColorUtils.appColorTransparent,
+                            padding: const EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.email_outlined,
+                              color: ColorUtils.appColorWhite_80,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                        EditTextField(
+                          hintText: StringUtils.txtPassword,
+                          isPassword: true,
+                          isSecure: true,
+                          mController: textEditingControllerPassword,
+                          borderColor: ColorUtils.appColorBlack_50,
+                          backgroundColor: ColorUtils.appColorBlack_50,
+                          textColor: ColorUtils.appColorWhite,
+                          cursorColor: ColorUtils.appColorWhite,
+                          fontSize: SizeUtils.textSizeNormal,
+                          borderRadius: 5,
+                          prefixIcon: Container(
+                            color: ColorUtils.appColorTransparent,
+                            padding: const EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.password_outlined,
+                              color: ColorUtils.appColorWhite_80,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                        EditTextField(
+                          hintText: StringUtils.txtConfirmPassword,
+                          isPassword: true,
+                          isSecure: true,
+                          mController: textEditingControllerConfirmPassword,
+                          borderColor: ColorUtils.appColorBlack_50,
+                          backgroundColor: ColorUtils.appColorBlack_50,
+                          textColor: ColorUtils.appColorWhite,
+                          cursorColor: ColorUtils.appColorWhite,
+                          fontSize: SizeUtils.textSizeNormal,
+                          borderRadius: 5,
+                          prefixIcon: Container(
+                            color: ColorUtils.appColorTransparent,
+                            padding: const EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.password_outlined,
+                              color: ColorUtils.appColorWhite_80,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: width,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(height: 10),
+                              Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                child: RoundButton(
+                                  height: 60,
+                                  isStroked: false,
+                                  textContent: StringUtils.txtSignUp,
+                                  textSize: SizeUtils.textSizeLarge,
+                                  radius: 5,
+                                  backgroundColor: ColorUtils.appColorBlack_30,
+                                  onPressed: () {
+                                    model.onClickSignUp(
+                                      context,
+                                      textEditingControllerName.text,
+                                      textEditingControllerEmail.text,
+                                      textEditingControllerRecoveryEmail.text,
+                                      textEditingControllerPassword.text,
+                                      textEditingControllerConfirmPassword.text,
+                                    );
+                                  },
                                 ),
                               ),
-                            ),
-                            EditTextField(
-                              hintText: StringUtils.txtEmail,
-                              isPassword: false,
-                              isSecure: false,
-                              mController: textEditingControllerEmail,
-                              borderColor: ColorUtils.appColorPrimaryDark,
-                              backgroundColor: ColorUtils.appColorWhite,
-                              labelColor: ColorUtils.appColorPrimaryDark,
-                              borderRadius: 5,
-                              prefixIcon: Container(
-                                color: ColorUtils.appColorAccent_5,
-                                padding: const EdgeInsets.all(12),
-                                child: Icon(
-                                  Icons.email_outlined,
-                                  color: ColorUtils.appColorPrimaryDark,
-                                  size: 24,
-                                ),
-                              ),
-                            ),
-                            EditTextField(
-                              hintText: StringUtils.txtPassword,
-                              isPassword: true,
-                              isSecure: true,
-                              mController: textEditingControllerPassword,
-                              borderColor: ColorUtils.appColorPrimaryDark,
-                              backgroundColor: ColorUtils.appColorWhite,
-                              labelColor: ColorUtils.appColorPrimaryDark,
-                              borderRadius: 5,
-                              prefixIcon: Container(
-                                color: ColorUtils.appColorAccent_5,
-                                padding: const EdgeInsets.all(12),
-                                child: Icon(
-                                  Icons.password_outlined,
-                                  color: ColorUtils.appColorPrimaryDark,
-                                  size: 24,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              child: SizedBox(
+                              Container(
                                 width: width,
-                                child: Column(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    const SizedBox(height: 10),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      margin: const EdgeInsets.fromLTRB(
-                                        5,
-                                        5,
-                                        5,
-                                        5,
-                                      ),
-                                      child: RoundButton(
-                                        isStroked: false,
-                                        textContent: StringUtils.txtSignUp,
-                                        textSize: SizeUtils.textSizeMedium,
-                                        radius: 5,
-                                        backgroundColor:
-                                            ColorUtils.appColorAccent,
-                                        onPressed: () {
-                                          model.onClickSignUp(
-                                            context,
-                                            textEditingControllerName.text,
-                                            textEditingControllerEmail.text,
-                                            textEditingControllerPassword.text,
-                                          );
-                                        },
-                                      ),
+                                    textView(
+                                      StringUtils.txtAlreadyHaveAnAccount,
+                                      textColor: ColorUtils.appColorWhite_80,
+                                      fontSize: SizeUtils.textSizeMedium,
+                                      fontWeight: FontWeight.w400,
+                                      isCentered: false,
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        textView(
-                                          StringUtils.txtAlreadyHaveAnAccount,
-                                          textColor:
-                                              ColorUtils.appColorTextWhite,
-                                          fontSize: SizeUtils.textSizeSMedium,
-                                          fontWeight: FontWeight.w400,
-                                          isCentered: false,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        GestureDetector(
-                                          child: textViewUnderline(
-                                            StringUtils.txtSignin,
-                                            textColor:
-                                                ColorUtils.appColorAccent,
-                                            fontSize: SizeUtils.textSizeMedium,
-                                            fontWeight: FontWeight.w500,
-                                            isCentered: false,
-                                          ),
-                                          onTap: () {
-                                            model.onClickBack(context);
-                                          },
-                                        ),
-                                      ],
+                                    const SizedBox(width: 10),
+                                    GestureDetector(
+                                      child: textViewUnderline(
+                                        StringUtils.txtSignin,
+                                        textColor: ColorUtils.appColorWhite,
+                                        fontSize: SizeUtils.textSizeLarge,
+                                        fontWeight: FontWeight.w500,
+                                        isCentered: false,
+                                      ),
+                                      onTap: () {
+                                        model.onClickBack(context);
+                                      },
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 30),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 30),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

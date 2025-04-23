@@ -1,6 +1,5 @@
 import 'package:device_tracking/extentions/widget_extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/common/user_model.dart';
@@ -14,8 +13,6 @@ class SplashViewModel extends BaseViewModel {
   late UserModel? userModel;
 
   initialize(BuildContext context) async {
-    await Firebase.initializeApp();
-
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       if (user.emailVerified) {
@@ -35,14 +32,18 @@ class SplashViewModel extends BaseViewModel {
         }
       } else {
         FirebaseAuth.instance.signOut();
-        if (context.mounted) {
-          MainView().launch(context, isNewTask: true);
-        }
+        await Future.delayed(Duration(milliseconds: 100)).then((_) {
+          if (context.mounted) {
+            LoginView().launch(context, isNewTask: true);
+          }
+        });
       }
     } else {
-      if (context.mounted) {
-        LoginView().launch(context, isNewTask: true);
-      }
+      await Future.delayed(Duration(milliseconds: 100)).then((_) {
+        if (context.mounted) {
+          LoginView().launch(context, isNewTask: true);
+        }
+      });      
     }
   }
 }

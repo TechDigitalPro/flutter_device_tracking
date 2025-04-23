@@ -14,12 +14,21 @@ import '../base_view_model.dart';
 class LoginViewModel extends BaseViewModel {
   String email = '';
   String password = '';
-  late UserModel? userModel;
+  late UserModel? userModel = UserModel();
   bool isFirst = false;
   bool isRememberMe = false;
-
-  initialize(BuildContext context) async {
+ 
+  initialize(BuildContext context, 
+  TextEditingController editingControllerEmail, TextEditingController editingControllerPassword) async {
     isFirst = await sharedService.getIsFirst();
+    userModel = await sharedService.getUser();
+    
+    if (userModel != null) {
+      editingControllerEmail.text = userModel!.userEmail ?? '';
+      editingControllerPassword.text = userModel!.password ?? '';
+    }
+
+    notifyListeners();
   }
 
   onSetRemember(bool isSet) {
@@ -58,7 +67,7 @@ class LoginViewModel extends BaseViewModel {
                         },
                       ),
                     },
-                },
+                }
             },
           );
     }

@@ -5,6 +5,7 @@ class UserModel {
   String? userEmail;
   String? userName;
   String? userPhone;
+  String? password;
   String? recoveryEmail;
   bool? isNotification;
   String? token;
@@ -16,6 +17,7 @@ class UserModel {
     this.userEmail,
     this.userName,
     this.userPhone,
+    this.password,
     this.recoveryEmail,
     this.isNotification,
     this.token,
@@ -28,6 +30,7 @@ class UserModel {
         'user_email': userEmail,
         'user_name': userName,
         'user_phone': userPhone,
+        'password': password,
         'recovery_email': recoveryEmail,
         'is_notification': isNotification,
         'token': token,
@@ -40,6 +43,7 @@ class UserModel {
         userEmail: json['user_email'],
         userName: json['user_name'],
         userPhone: json['user_phone'],
+        password: json['password'],
         recoveryEmail: json['recovery_email'],
         isNotification: json['is_notification'],
         token: json['token'],

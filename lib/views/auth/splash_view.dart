@@ -35,7 +35,6 @@ class SplashView extends StatelessWidget {
             ImageUtils.imgIcLogo,
             width: width * 0.5,
             fit: BoxFit.fitWidth,
-            color: ColorUtils.appColorWhite,
           ),
         ),
       ),

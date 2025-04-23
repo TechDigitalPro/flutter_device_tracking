@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/common/home_data.dart';
 import '../model/common/user_model.dart';
 import '../model/request/login_req.dart';
 
@@ -105,5 +106,22 @@ class SharedService {
     await _getPref();
     var value = _prefs!.getString(name);
     return value;
+  }
+
+  void saveHomeData(HomeData? homeData) async {
+    await _getPref();
+    _prefs!.setString(
+      "home_data",
+      homeData == null ? '' : jsonEncode(homeData.toJson()),
+    );
+  }
+
+  Future<HomeData?> getHomeData() async {
+    await _getPref();
+    String? str = _prefs!.getString("home_data");
+    if (str == null || str.isEmpty) return null;
+    var json = jsonDecode(str);
+    HomeData homeData = HomeData.fromJson(json);
+    return homeData;
   }
 }

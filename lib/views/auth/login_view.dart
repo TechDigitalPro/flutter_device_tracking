@@ -21,7 +21,7 @@ class LoginView extends StatelessWidget {
     return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => buildWidget(context, model, child),
-      onViewModelReady: (model) => model.initialize(context),
+      onViewModelReady: (model) => model.initialize(context, textEditingControllerEmail, textEditingControllerPassword),
     );
   }
 
@@ -42,232 +42,169 @@ class LoginView extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: ColorUtils.appColorPrimaryDark,
+        appBar: AppBar(
+          backgroundColor: ColorUtils.appColorPrimaryDark,
+          title: textView(
+            StringUtils.txtSignin,
+            textColor: ColorUtils.appColorWhite,
+            fontSize: SizeUtils.textSizeXLarge,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         body: SizedBox(
           child: SingleChildScrollView(
-            child: Stack(
-              children: <Widget>[
-                SizedBox(width: width, height: height),
-                SafeArea(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Container(
-                        height: height * 0.4,
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          ImageUtils.imgIcLogo,
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    height: height * 0.3,
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      ImageUtils.imgIcLogo,
+                      width: width,
+                      height: height * 0.2,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        model.userModel == null ? Container() :
+                        Container(
                           width: width,
-                          height: height * 0.2,
-                          fit: BoxFit.fitHeight,
-                          color: ColorUtils.appColorWhite,
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          child: textView(
+                            model.userModel!.userName,
+                            textColor: ColorUtils.appColorWhite,
+                            fontSize: SizeUtils.textSizeXLarge,
+                            fontWeight: FontWeight.bold,
                           ),
-                          color: ColorUtils.appColorWhite,
-                          boxShadow: [
-                            BoxShadow(
-                              color: ColorUtils.appColorBlack_10,
-                              blurRadius: 10,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
                         ),
-                        padding: const EdgeInsets.all(10),
-                        width: width,
-                        height: height * 0.6,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textView(
-                              StringUtils.txtSignin,
-                              textColor: ColorUtils.appColorBlack,
-                              fontSize: SizeUtils.textSizeNormal,
-                              fontWeight: FontWeight.w400,
+                        EditTextField(
+                          hintText: StringUtils.txtEmail,
+                          hintColor: ColorUtils.appColorWhite_80,
+                          isPassword: false,
+                          isSecure: false,
+                          mController: textEditingControllerEmail,
+                          borderColor: ColorUtils.appColorBlack_50,
+                          backgroundColor: ColorUtils.appColorBlack_50,
+                          textColor: ColorUtils.appColorWhite,
+                          cursorColor: ColorUtils.appColorWhite,
+                          fontSize: SizeUtils.textSizeNormal,
+                          borderRadius: 5,
+                          prefixIcon: Container(
+                            color: ColorUtils.appColorTransparent,
+                            padding: const EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.email_outlined,
+                              color: ColorUtils.appColorWhite_80,
+                              size: 30,
                             ),
-                            const SizedBox(height: 10),
-                            EditTextField(
-                              hintText: StringUtils.txtEmail,
-                              isPassword: false,
-                              isSecure: false,
-                              mController: textEditingControllerEmail,
-                              borderColor: ColorUtils.appColorPrimaryDark,
-                              backgroundColor: ColorUtils.appColorWhite,
-                              labelColor: ColorUtils.appColorPrimaryDark,
-                              borderRadius: 5,
-                              prefixIcon: Container(
-                                color: ColorUtils.appColorAccent_5,
-                                padding: const EdgeInsets.all(12),
-                                child: Icon(
-                                  Icons.email_outlined,
-                                  color: ColorUtils.appColorPrimaryDark,
-                                  size: 24,
-                                ),
+                          ),
+                          autoFocus: false,
+                        ),
+                        EditTextField(
+                          hintText: StringUtils.txtPassword,
+                          hintColor: ColorUtils.appColorWhite_80,
+                          isPassword: true,
+                          isSecure: true,
+                          mController: textEditingControllerPassword,
+                          borderColor: ColorUtils.appColorBlack_50,
+                          backgroundColor: ColorUtils.appColorBlack_50,
+                          textColor: ColorUtils.appColorWhite,
+                          cursorColor: ColorUtils.appColorWhite,
+                          fontSize: SizeUtils.textSizeNormal,
+                          borderRadius: 5,
+                          prefixIcon: Container(
+                            color: ColorUtils.appColorTransparent,
+                            padding: const EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.password_outlined,
+                              color: ColorUtils.appColorWhite_80,
+                              size: 30,
+                            ),
+                          ),
+                          autoFocus: false,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: RoundButton(
+                            height: 60,
+                            isStroked: false,
+                            textContent: StringUtils.txtSignin,
+                            textSize: SizeUtils.textSizeLarge,
+                            backgroundColor: ColorUtils.appColorBlack_30,
+                            radius: 5,
+                            onPressed: () {
+                              model.onClickLogin(
+                                context,
+                                textEditingControllerEmail.text,
+                                textEditingControllerPassword.text,
+                              );
+                            },
+                          ),
+                        ),
+                        Container(
+                          width: width,
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.all(10),
+                          child: GestureDetector(
+                            child: textViewUnderline(
+                                StringUtils.txtForgotPassword,
+                                textColor:
+                                    ColorUtils.appColorWhite,
+                                fontSize:
+                                    SizeUtils.textSizeMedium,
+                                fontWeight: FontWeight.w400,
+                                isCentered: false),
+                            onTap: () {
+                              model.onClickResetPass(context);
+                            },
+                          ),
+                        ),
+                        Container(
+                          width: width,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              textView(
+                                StringUtils.txtNoAccount,
+                                textColor: ColorUtils.appColorWhite_80,
+                                fontSize: SizeUtils.textSizeMedium,
+                                fontWeight: FontWeight.w400,
+                                isCentered: false,
                               ),
-                              autoFocus: false,
-                            ),
-                            EditTextField(
-                              hintText: StringUtils.txtPassword,
-                              isPassword: true,
-                              isSecure: true,
-                              mController: textEditingControllerPassword,
-                              borderColor: ColorUtils.appColorPrimaryDark,
-                              backgroundColor: ColorUtils.appColorWhite,
-                              labelColor: ColorUtils.appColorPrimaryDark,
-                              borderRadius: 5,
-                              prefixIcon: Container(
-                                color: ColorUtils.appColorAccent_5,
-                                padding: const EdgeInsets.all(12),
-                                child: Icon(
-                                  Icons.password_outlined,
-                                  color: ColorUtils.appColorPrimaryDark,
-                                  size: 24,
-                                ),
-                              ),
-                              autoFocus: false,
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                              child: RoundButton(
-                                isStroked: false,
-                                textContent: StringUtils.txtSignin,
-                                textSize: SizeUtils.textSizeMedium,
-                                radius: 5,
-                                onPressed: () {
-                                  model.onClickLogin(
-                                    context,
-                                    textEditingControllerEmail.text,
-                                    textEditingControllerPassword.text,
-                                  );
-                                },
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              color: ColorUtils.appColorTransparent,
-                              child: GestureDetector(
+                              const SizedBox(width: 10),
+                              GestureDetector(
                                 child: textViewUnderline(
-                                  StringUtils.txtResendVerificationEmail,
-                                  textColor: ColorUtils.appColorBlack,
-                                  fontSize: SizeUtils.textSizeSMedium,
-                                  fontWeight: FontWeight.w400,
+                                  StringUtils.txtSignUp,
+                                  textColor: ColorUtils.appColorWhite,
+                                  fontSize: SizeUtils.textSizeLarge,
+                                  fontWeight: FontWeight.w500,
                                   isCentered: false,
                                 ),
                                 onTap: () {
-                                  model.onClickResendVerificationEmail(context);
+                                  model.onClickRegister(context);
                                 },
                               ),
-                            ),
-                            Expanded(
-                              child: SizedBox(
-                                width: width,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: <Widget>[
-                                            Theme(
-                                              data: ThemeData(
-                                                unselectedWidgetColor:
-                                                    ColorUtils
-                                                        .appColorTextLight,
-                                                checkboxTheme: CheckboxThemeData(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          5,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                              child: Checkbox(
-                                                value: model.isRememberMe,
-                                                onChanged: (bool? value) {
-                                                  model.onSetRemember(value!);
-                                                },
-                                                activeColor:
-                                                    ColorUtils.appColorAccent,
-                                              ),
-                                            ),
-                                            textView(
-                                              StringUtils.txtRememberMe,
-                                              textColor:
-                                                  ColorUtils.appColorTextLight,
-                                              fontSize:
-                                                  SizeUtils.textSizeSMedium,
-                                            ),
-                                          ],
-                                        ),
-                                        GestureDetector(
-                                          child: textViewUnderline(
-                                            StringUtils.txtForgotPassword,
-                                            textColor:
-                                                ColorUtils.appColorAccent,
-                                            fontSize: SizeUtils.textSizeSMedium,
-                                            fontWeight: FontWeight.w400,
-                                            isCentered: false,
-                                          ),
-                                          onTap: () {
-                                            model.onClickResetPass(context);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        textView(
-                                          StringUtils.txtNoAccount,
-                                          textColor:
-                                              ColorUtils.appColorTextLight,
-                                          fontSize: SizeUtils.textSizeSMedium,
-                                          fontWeight: FontWeight.w400,
-                                          isCentered: false,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        GestureDetector(
-                                          child: textViewUnderline(
-                                            StringUtils.txtSignUp,
-                                            textColor:
-                                                ColorUtils.appColorAccent,
-                                            fontSize: SizeUtils.textSizeMedium,
-                                            fontWeight: FontWeight.w500,
-                                            isCentered: false,
-                                          ),
-                                          onTap: () {
-                                            model.onClickRegister(context);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 30),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 30),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

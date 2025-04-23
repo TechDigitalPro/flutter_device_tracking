@@ -71,16 +71,16 @@ class CustomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      elevation: 10,
-      shadowColor: ColorUtils.appColorBlack,
-      contentPadding: const EdgeInsets.all(20),
-      backgroundColor: Colors.white,
+      elevation: 5,
+      shadowColor: ColorUtils.appColorWhite_20,
+      contentPadding: const EdgeInsets.all(15),
+      backgroundColor: ColorUtils.appColorPrimary,
       content: Text(description,
-          style: primaryTextStyle(color: ColorUtils.appColorBlack)),
+          style: primaryTextStyle(color: ColorUtils.appColorWhite)),
       actions: [
         TextButton(
           child: Text(cancelButtonStr,
-              style: secondaryTextStyle(color: ColorUtils.appColorBlack)),
+              style: secondaryTextStyle(color: ColorUtils.appColorWhite)),
           onPressed: () {
             finish(context);
             if (cancelClicked != null) {
@@ -90,7 +90,7 @@ class CustomDialog extends StatelessWidget {
         ),
         TextButton(
           child: Text(okButtonStr,
-              style: secondaryTextStyle(color: ColorUtils.appColorAccent)),
+              style: secondaryTextStyle(color: ColorUtils.appColorGreen)),
           onPressed: () {
             finish(context);
             okClicked();
@@ -195,6 +195,7 @@ Widget textViewUnderline(
       decoration: TextDecoration.underline,
       decorationStyle:
           dash ? TextDecorationStyle.dashed : TextDecorationStyle.solid,
+      decorationColor: textColor ?? ColorUtils.appColorBlack,
     ),
   );
 }
@@ -284,7 +285,7 @@ class EditTextFieldState extends State<EditTextField> {
             obscureText: widget.isPassword,
             decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                contentPadding: const EdgeInsets.fromLTRB(25, 8, 4, 8),
+                contentPadding: const EdgeInsets.fromLTRB(20, 10, 5, 10),
                 hintText: widget.hintText,
                 labelText: widget.hintText,
                 prefixIcon: widget.prefixIcon ?? Container(width: 0,),
@@ -322,7 +323,7 @@ class EditTextFieldState extends State<EditTextField> {
                       widget.isPassword
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
-                      color: Colors.black),
+                      color: ColorUtils.appColorWhite_80),
                 )),
             cursorColor: widget.cursorColor ?? ColorUtils.appColorBlack,
             textAlign:

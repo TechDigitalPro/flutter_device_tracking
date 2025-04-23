@@ -12,6 +12,7 @@ class SignUpViewModel extends BaseViewModel {
   String name = '';
   String email = '';
   String password = '';
+  String confirmPassword = '';
 
   initialize(BuildContext context) async {}
 
@@ -31,11 +32,14 @@ class SignUpViewModel extends BaseViewModel {
     BuildContext context,
     String tName,
     String tEmail,
+    String tRecoveryEmail,
     String tPassword,
+    String tConfirmPassword,
   ) async {
     name = tName.trim();
     email = tEmail.trim();
     password = tPassword;
+    confirmPassword = tConfirmPassword;
 
     if (checkValidate()) {
       UserModel userModel = UserModel();
@@ -55,6 +59,9 @@ class SignUpViewModel extends BaseViewModel {
                       userModel.userEmail = email,
                       userModel.id = user.uid,
                       userModel.userPhone = '',
+                      userModel.password = password,
+                      userModel.recoveryEmail = tRecoveryEmail,
+                      userModel.token = '',
                       userModel.devices = [],
                       userModel.isNotification = true,
                       userModel.created = Timestamp.fromDate(DateTime.now()),
@@ -62,8 +69,11 @@ class SignUpViewModel extends BaseViewModel {
                       networkService
                           .createOrUpdateUserData(userModel)
                           .then(
-                            (value) => {
-                              if (context.mounted) {finishView(context)},
+                            (value) {
+                              if (context.mounted) {
+                                sharedService.saveUser(userModel);
+                                finishView(context);
+                              }
                             },
                           ),
                     },
@@ -91,6 +101,10 @@ class SignUpViewModel extends BaseViewModel {
     }
     if (password.isEmpty) {
       showMessage(StringUtils.txtPleaseEnterPassword, null);
+      return false;
+    }
+    if (password != confirmPassword) {
+      showMessage(StringUtils.txtPasswordIsNotMatch, null);
       return false;
     }
     if (!isValidEmail(email)) {

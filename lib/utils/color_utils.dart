@@ -41,6 +41,7 @@ class ColorUtils {
   static Color appColorGreyBack = const Color(0xFFEEEEEE);
   static Color appColorGradientEnd = const Color(0x88100400);
   static Color appColorGradientStart = const Color(0x00100400);
+  static Color appColorGreen = const Color(0xFF00FFA2);
 
   static Color appColorCardRed = const Color(0xFFE44C4C);
   static Color appColorCardBlue = const Color(0xFF275485);
@@ -49,7 +50,7 @@ class ColorUtils {
   static Color appColorCardYellow = const Color(0xFFf0cc4f);
   static Color appColorCardPurple = const Color(0xFF8c4ff0);
   static Color appColorCardOrange = const Color(0xFFe99340);
-  static Color appColorCardGreenLight = const Color(0xFF91b900);
+  static Color appColorCardGreenLight = const Color(0xFF00FFA2);
   static Color appColorCardBrown = const Color(0xFFb85c03);
 
   static int hexToInt(String hex)

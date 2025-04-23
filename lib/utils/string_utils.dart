@@ -1,9 +1,25 @@
 class StringUtils {
-  static const txtAppName = 'KRYPTIN';
-  static const txtEncryptedPrivateMessaging = 'Encrypted Private Messaging';
-  static const txtKryptinEncryptedMessaging = 'Kryptin Encrypted Messaging';
-  static const txtMyKryptinIdIs = 'My Kryptin ID is';
-  static const txtPleaseContactMeUsingKryptin = 'Please contact me using the Kryptin Encrypted Messaging App.';
+  static const txtAppName = 'DeviceTracking';
+  static const txtAppIsScanningDevices = 'App is scanning devices';
+  static const txtPleaseEnableBluetooth = 'Please enable bluetooth';
+  static const txtThisDeviceIsAlreadyConnected = 'This device is already connected';
+  static const txtThisDeviceIsAlreadyPaired = 'This device is already paired';
+  static const txtErrorOccurredWhileBonding = 'Error occurred while bonding';
+  static const txtPleaseDisableAndEnableAgain = 'Please disable and enable Bluetooth again';
+  static const txtBleDeviceDisconnected = 'Ble device disconnected';
+  static const txtBleDeviceConnecting = 'Ble device connecting...';
+  static const txtErrorOccurredWhileConnecting = 'Error occurred while connecting';
+  static const txtCannotConnectExceptionOccurred = 'Cannot connect, exception occurred';
+  static const txtBluetoothDevicesFound = 'Bluetooth devices found';
+  static const txtDeviceIsAlreadyAdded = 'Device is already added';
+  static const txtStop = 'Stop';
+  static const txtScan = 'Scan';
+  static const txtPaired = 'Paired';
+  static const txtUnpaired = 'Unpaired';
+  static const txtConnect = 'Connect';
+  static const txtConnected = 'Connected';
+  static const txtPleaseEnableAllPermissions = 'Please enable all permissions.';
+  static const txtBluetooth = 'Bluetooth';
   static const txtBack = 'Back';
   static const txtNext = 'Next';
   static const txtApply = 'Apply';
@@ -30,7 +46,7 @@ class StringUtils {
   static const txtShare = 'Share';
   static const txtWelcome = 'Welcome';
   static const txtDoYouWantToExit = 'Are you sure you want to exit?';
-  static const txtLogin = 'Login';
+  static const txtLogin = 'Log In';
   static const txtSignUp = 'Sign Up';
   static const txtFacebook = 'Facebook';
   static const txtGoogle = 'Google';
@@ -45,8 +61,10 @@ class StringUtils {
   static const txtCreateAnAccount = 'Create an account';
   static const txtAlreadyHaveAnAccount = 'Already have an account?';
   static const txtUserName = 'User Name';
+  static const txtUser = 'User';
   static const txtYourName = 'Your Name';
   static const txtEmail = 'Email';
+  static const txtRecoveryEmail = 'Recovery Email';
   static const txtNewEmail = 'New Email';
   static const txtPassword = 'Password';
   static const txtOldPassword = 'Old Password';
@@ -75,8 +93,10 @@ class StringUtils {
   static const txtSupport = 'Support';
   static const txtContactAndSupport = 'Contact & Support';
   static const txtHelp = 'Help';
+  static const txtHome = 'Home';
   static const txtCountry = 'Country';
   static const txtState = 'State';
+  static const txtStatus = 'Status';
   static const txtAddGroup = 'Add Group';
   static const txtYou = 'You';
   static const txtGroupAdmin = 'Group Admin';
@@ -118,7 +138,7 @@ class StringUtils {
   static const txtCreateGroupSuccess = 'Group created successfully';
   static const txtPleaseEnterGroupName = 'Please enter Group name';
   static const txtPleaseSelectAtLeast1Participants = 'Please select at least 1 participants';
-  static const txtEnterTheNameOfUser = 'Enter the name of the person you want to add to your contacts.';
+  static const txtBluetoothNotSupportedByThisDevice = 'Bluetooth not supported by this device';
   static const txtOnline = 'online';
   static const txtOffline = 'offline';
   static const txtPro = 'pro';
@@ -134,7 +154,7 @@ class StringUtils {
   static const txtAdd = 'Add';
   static const txtRestorePurchases = 'Restore purchases';
   static const txtAreYouSureYouWantToAddContact = 'Are you sure you want to add this contact?';
-  static const txtAreYouSureYouWantToRemove = 'Are you sure you want to remove this contact?';
+  static const txtAreYouSureYouWantToRemove = 'Are you sure you want to remove this device?';
   static const txtAreYouSureYouWantToReport = 'Are you sure you want to report this user?';
   static const txtAreYouSureYouWantToChangePassword = 'Are you sure you want to change password?';
   static const txtAreYouSureYouWantToRemoveAllContacts = 'All contacts will be removed and cannot be restored. Are you sure you want to delete all contacts?';
@@ -248,9 +268,5 @@ class StringUtils {
   static const txtContactIsEmpty = 'Contact is empty, Go to setting and allow contact access';
   static const txtSubscriptionNotFound = 'Subscription item not found';
   static const txtYouAlreadyProUser = 'You are already a PRIMIUM user';
-  static const txt199Month = '\$1.99 / Month';
-
-  static const siteUrl = 'www.vajo.com';
-  static const videoUrl = 'https://youtu.be/tqpW483eu2I';
 
 }

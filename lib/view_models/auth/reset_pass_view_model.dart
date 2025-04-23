@@ -25,4 +25,8 @@ class ResetPassViewModel extends BaseViewModel {
   onClickRemember(BuildContext context) {
     finishView(context);
   }
+
+  onClickBack(BuildContext context) {
+    finishView(context);
+  }
 }
